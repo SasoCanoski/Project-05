@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>challenge 14</title>
+  </head>
+  <body>
+    <script>
+      let arrBooks = [];
+      let ulLi = document.createElement("ul");
+      document.body.appendChild(ulLi);
+      let ulLi1 = document.createElement("ul");
+      document.body.appendChild(ulLi1);
+      let div = document.createElement("div");
+      document.body.appendChild(div);
+      let table = document.createElement("table");
+      div.appendChild(table);
+      let tr1 = table.insertRow();
+      let td11 = tr1.insertCell(0);
+      let td22 = tr1.insertCell(1);
+      let td33 = tr1.insertCell(2);
+      let td44 = tr1.insertCell(3);
+      let td55 = tr1.insertCell(4);
+      td11.innerHTML = "Title";
+      td22.innerHTML = "Author";
+      td33.innerHTML = "Max Page";
+      td44.innerHTML = "On Page";
+      td55.innerHTML = "Progres";
+      td11.style.fontWeight = "bold";
+      td22.style.fontWeight = "bold";
+      td33.style.fontWeight = "bold";
+      td44.style.fontWeight = "bold";
+      td55.style.fontWeight = "bold";
+      td44.style.paddingLeft = "15px";
+      td55.style.paddingLeft = "15px";
+
+      class Library {
+        constructor(_title, _author, _maxPage, _onPage, progres = 0) {
+          this.title = _title;
+          this.author = _author;
+          this.maxPage = _maxPage;
+          this.onPage = _onPage;
+          this.progres = Math.floor((this.onPage / this.maxPage) * 100) + "%";
+        }
+      }
+      let library1 = new Library("The Hobbit", " J.R.R. Tolkien", 200, 122);
+      let library2 = new Library("Harry Potter", " J.K.Rolling", 300, 300);
+      let library3 = new Library("Hamlet", "William Shakespeare", 150, 75);
+      arrBooks.push(library1);
+      arrBooks.push(library2);
+      arrBooks.push(library3);
+
+      arrBooks.forEach(function(element, index) {
+        let elLi1 = document.createElement("li");
+        ulLi.appendChild(elLi1);
+        elLi1.innerHTML = `"${element.title}" by ${element.author}`;
+
+        if (element.maxPage === element.onPage) {
+          let elLi11 = document.createElement("li");
+          ulLi1.appendChild(elLi11);
+          elLi11.innerHTML = `You already read "${element.title}" by ${element.author}`;
+        } else {
+          let elLi11 = document.createElement("li");
+          ulLi1.appendChild(elLi11);
+          elLi11.innerHTML = `You still need to read "${element.title}" by ${element.author}`;
+        }
+
+        let tr = table.insertRow();
+        let td1 = tr.insertCell(0);
+        let td2 = tr.insertCell(1);
+        let td3 = tr.insertCell(2);
+        let td4 = tr.insertCell(3);
+        let td5 = tr.insertCell(4);
+
+        td1.innerHTML = element.title;
+        td2.innerHTML = element.author;
+        td3.innerHTML = element.maxPage;
+        td4.innerHTML = element.onPage;
+
+        td1.style.paddingRight = "20px";
+        td3.style.paddingLeft = "18px";
+        td4.style.paddingLeft = "27px";
+        td5.style.marginLeft = "15px";
+        td5.style.backgroundColor = "gray";
+
+        let proColor = document.createElement("div");
+        td5.appendChild(proColor);
+        proColor.style.backgroundColor = "green";
+
+        proColor.style.width =
+          Math.floor((element.onPage / element.maxPage) * 100) + "%";
+        proColor.innerHTML =
+          Math.floor((element.onPage / element.maxPage) * 100) + "%";
+      });
+      let div1 = document.createElement("div");
+      document.body.appendChild(div1);
+      let para = document.createElement("p");
+      div1.appendChild(para);
+
+      para.innerHTML = "Add a book to the list:";
+      para.style.fontSize = "20px";
+      para.style.fontStyle = "italic";
+      para.style.fontWeight = "bold";
+
+      let inputBookName = document.createElement("input");
+      let inputAuthor = document.createElement("input");
+      let inputMaxPage = document.createElement("input");
+      let inputOnPage = document.createElement("input");
+      let btn = document.createElement("button");
+
+      div1.appendChild(inputBookName);
+      div1.appendChild(inputAuthor);
+      div1.appendChild(inputMaxPage);
+      div1.appendChild(inputOnPage);
+      div1.appendChild(btn);
+
+      inputBookName.style.marginRight = "10px";
+      inputAuthor.style.marginRight = "10px";
+      inputMaxPage.style.marginRight = "10px";
+      inputOnPage.style.marginRight = "10px";
+      btn.style.marginRight = "10px";
+
+      btn.innerHTML = "Add Book";
+      btn.addEventListener("click", addBk);
+
+      function addBk() {
+        let boo = {
+          name: inputBookName.value,
+          author: inputAuthor.value,
+          MaxPage: inputMaxPage.value,
+          OnPage: inputOnPage.value,
+          progres:
+            Math.floor((inputOnPage.value / inputMaxPage.value) * 100) + "%"
+        };
+        inputBookName.value = "";
+        inputAuthor.value = "";
+        inputMaxPage.value = "";
+        inputOnPage.value = "";
+        arrBooks.push(boo);
+
+        let tr = table.insertRow();
+        let td1 = tr.insertCell(0);
+        let td2 = tr.insertCell(1);
+        let td3 = tr.insertCell(2);
+        let td4 = tr.insertCell(3);
+        let td5 = tr.insertCell(4);
+
+        td1.innerHTML = boo.name;
+        td2.innerHTML = boo.author;
+        td3.innerHTML = boo.MaxPage;
+        td4.innerHTML = boo.OnPage;
+
+        let proColor = document.createElement("div");
+        td5.appendChild(proColor);
+
+        proColor.style.backgroundColor = "green";
+        proColor.style.width = boo.progres;
+        proColor.innerHTML = boo.progres;
+
+        td3.style.paddingLeft = "18px";
+        td4.style.paddingLeft = "27px";
+        td5.style.backgroundColor = "gray";
+      }
+    </script>
+  </body>
+</html>
